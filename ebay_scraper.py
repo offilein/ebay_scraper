@@ -12,7 +12,7 @@ def get_page(url):
         soup = BeautifulSoup(response.text, 'lxml')
     return soup
     
-#Titelö
+#Titel Preis Währung und verkaufte Anzahl scrapen
 def get_detail_data(soup):
     try:
         title = soup.find('h1', id='itemTitle').text.strip().replace('Details about   ', '')
@@ -47,6 +47,7 @@ def get_detail_data(soup):
 
     return data
 
+#Links zu allen Items scrapen
 def get_index_data(soup):
     try:
         links = soup.find_all('a', class_='s-item__link')
@@ -57,6 +58,7 @@ def get_index_data(soup):
 
     return urls
 
+#als csv exportieren
 def write_csv(data, url):
     with open('output.csv', 'a') as csvfile:
         writer = csv.writer(csvfile)
@@ -65,6 +67,7 @@ def write_csv(data, url):
 
         writer.writerow(row)
 
+#main Funktion und link zum scrapen
 def main():
     url = 'https://www.ebay.com/sch/i.html?_nkw=paper+mario+n64&_pgn=1'
 
